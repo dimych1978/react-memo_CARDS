@@ -1,10 +1,12 @@
 import { shuffle } from "lodash";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { generateDeck } from "../../utils/cards";
 import styles from "./Cards.module.css";
 import { EndGameModal } from "../../components/EndGameModal/EndGameModal";
 import { Button } from "../../components/Button/Button";
 import { Card } from "../../components/Card/Card";
+import { LightContext } from "../../context/lightContext";
+// import { useNavigate } from "react-router-dom";
 
 // Игра закончилась
 const STATUS_LOST = "STATUS_LOST";
@@ -41,8 +43,12 @@ function getTimerValue(startDate, endDate) {
  * previewSeconds - сколько секунд пользователь будет видеть все карты открытыми до начала игры
  */
 export function Cards({ pairsCount = 3, previewSeconds = 5 }) {
+  const { isLight, tries, setTries } = useContext(LightContext);
   // В cards лежит игровое поле - массив карт и их состояние открыта\закрыта
   const [cards, setCards] = useState([]);
+
+  const [playerLost, setPlayerLost] = useState(false);
+
   // Текущий статус игры
   const [status, setStatus] = useState(STATUS_PREVIEW);
 
@@ -68,7 +74,11 @@ export function Cards({ pairsCount = 3, previewSeconds = 5 }) {
     setTimer(getTimerValue(startDate, null));
     setStatus(STATUS_IN_PROGRESS);
   }
+  // const navigate = useNavigate();
+
   function resetGame() {
+    // navigate("/");
+    setTries(3);
     setGameStartDate(null);
     setGameEndDate(null);
     setTimer(getTimerValue(null, null));
@@ -77,16 +87,27 @@ export function Cards({ pairsCount = 3, previewSeconds = 5 }) {
 
   /**
    * Обработка основного действия в игре - открытие карты.
-   * После открытия карты игра может пепереходит в следующие состояния
+   * После открытия карты игра может переходить в следующие состояния
    * - "Игрок выиграл", если на поле открыты все карты
    * - "Игрок проиграл", если на поле есть две открытые карты без пары
    * - "Игра продолжается", если не случилось первых двух условий
    */
-  const openCard = clickedCard => {
+
+  useEffect(() => {
+    setTries(tries);
+  }, [tries, setTries]);
+
+  useEffect(() => {
+    if (tries === 0) setPlayerLost(true);
+  }, [tries, playerLost]);
+
+  const openCard = (clickedCard, efforts, lost) => {
     // Если карта уже открыта, то ничего не делаем
     if (clickedCard.open) {
       return;
     }
+    console.log("🚀 ~ openCard ~ efforts:", efforts, lost);
+
     // Игровое поле после открытия кликнутой карты
     const nextCards = cards.map(card => {
       if (card.id !== clickedCard.id) {
@@ -123,10 +144,29 @@ export function Cards({ pairsCount = 3, previewSeconds = 5 }) {
       return false;
     });
 
-    const playerLost = openCardsWithoutPair.length >= 2;
+    function tryLost() {
+      if (openCardsWithoutPair.length === 2) {
+        setTries(tries - 1);
+        setTimeout(() => {
+          setCards(
+            cards.reduce((acc, card) => {
+              if (card.id === clickedCard.id) {
+                return [...acc, { ...card, open: false }];
+              }
+              return [...acc, card];
+            }, []),
+          );
+        }, 1000);
+      }
+    }
+    tryLost();
 
+    console.log("🚀 ~ openCard ~ tries:", tries);
+    console.log("🚀 ~ openCard ~ lost:", lost);
+
+    console.log("🚀 ~ openCard ~ playerLost:", playerLost);
     // "Игрок проиграл", т.к на поле есть две открытые карты без пары
-    if (playerLost) {
+    if (lost) {
       finishGame(STATUS_LOST);
       return;
     }
@@ -195,14 +235,18 @@ export function Cards({ pairsCount = 3, previewSeconds = 5 }) {
             </>
           )}
         </div>
-        {status === STATUS_IN_PROGRESS ? <Button onClick={resetGame}>Начать заново</Button> : null}
+        {status === STATUS_IN_PROGRESS ? (
+          <div>
+            {isLight && <p className={styles.tries}>Осталось попыток {tries}</p>}
+            <Button onClick={resetGame}>Начать заново</Button>
+          </div>
+        ) : null}
       </div>
-
       <div className={styles.cards}>
         {cards.map(card => (
           <Card
             key={card.id}
-            onClick={() => openCard(card)}
+            onClick={() => openCard(card, tries, playerLost)}
             open={status !== STATUS_IN_PROGRESS ? true : card.open}
             suit={card.suit}
             rank={card.rank}
