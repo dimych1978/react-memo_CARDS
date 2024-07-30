@@ -16,7 +16,7 @@ const STATUS_IN_PROGRESS = "STATUS_IN_PROGRESS";
 // Начало игры: игрок видит все карты в течении нескольких секунд
 const STATUS_PREVIEW = "STATUS_PREVIEW";
 
-function getTimerValue(startDate, endDate) {
+export function getTimerValue(startDate, endDate) {
   if (!startDate && !endDate) {
     return {
       minutes: 0,
@@ -79,6 +79,7 @@ export function Cards({ pairsCount = 3, previewSeconds = 5 }) {
   function resetGame() {
     // navigate("/");
     setTries(3);
+    setPlayerLost(false);
     setGameStartDate(null);
     setGameEndDate(null);
     setTimer(getTimerValue(null, null));
@@ -95,10 +96,11 @@ export function Cards({ pairsCount = 3, previewSeconds = 5 }) {
 
   useEffect(() => {
     setTries(tries);
+    console.log("🚀 ~ useEffect ~ tries:", tries);
   }, [tries, setTries]);
 
   useEffect(() => {
-    if (tries === 0) setPlayerLost(true);
+    if (tries === 1) setPlayerLost(true);
   }, [tries, playerLost]);
 
   const openCard = (clickedCard, efforts, lost) => {
