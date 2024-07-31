@@ -8,7 +8,7 @@ const LeaderboardPage = () => {
   return (
     <div className={styles.container}>
       <div className={styles.header}>
-        <p>Лидерборд</p>
+        <p className={styles.title}>Лидерборд</p>
         <Button>Начать заново</Button>
       </div>
       <section className={styles.leaders}>
