@@ -78,7 +78,7 @@ export function Cards({ pairsCount = 3, previewSeconds = 5 }) {
 
   function resetGame() {
     // navigate("/");
-    setTries(3);
+    setTries(isLight ? 3 : 1);
     setPlayerLost(false);
     setGameStartDate(null);
     setGameEndDate(null);
