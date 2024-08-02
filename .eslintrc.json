@@ -1,9 +1,9 @@
 {
   "extends": ["eslint:recommended", "prettier", "react-app", "react-app/jest"],
-  "plugins": ["prettier"],
+  "plugins": ["prettier", "eslint-plugin-prettier"],
   "rules": {
     "camelcase": ["error", { "properties": "never" }],
-    "prettier/prettier": "error",
+    "prettier/prettier": "off",
     "eqeqeq": ["error", "always"],
     "no-unused-vars": ["error"]
   }

@@ -70,3 +70,8 @@
 
   margin-bottom: -12px;
 }
+
+.tries {
+  color: greenyellow;
+  display: block;
+}

@@ -1,7 +1,11 @@
 import { Link } from "react-router-dom";
 import styles from "./SelectLevelPage.module.css";
+import { useContext } from "react";
+import { LightContext } from "../../context/lightContext";
 
 export function SelectLevelPage() {
+  const { isLight, setIsLight } = useContext(LightContext);
+
   return (
     <div className={styles.container}>
       <div className={styles.modal}>
@@ -23,6 +27,12 @@ export function SelectLevelPage() {
             </Link>
           </li>
         </ul>
+        <div className={styles.checkbox}>
+          <input className="" type="checkbox" checked={isLight} id="light" onChange={() => setIsLight(!isLight)} />
+          <label className={styles.light} htmlFor="light">
+            Уровень "light" <i>(Можно сделать 2 ошибки без прекращения игры)</i>
+          </label>
+        </div>
       </div>
     </div>
   );
