@@ -78,7 +78,7 @@ export function Cards({ pairsCount = 3, previewSeconds = 5 }) {
 
   function resetGame() {
     // navigate("/");
-    setTries(3);
+    setTries(isLight ? 3 : 1);
     setPlayerLost(false);
     setGameStartDate(null);
     setGameEndDate(null);
@@ -95,14 +95,14 @@ export function Cards({ pairsCount = 3, previewSeconds = 5 }) {
    */
 
   useEffect(() => {
-    setTries(tries);
-  }, [tries, setTries]);
-
-  useEffect(() => {
-    if (tries === 1) setPlayerLost(true);
+    if (tries === 0) setPlayerLost(true);
   }, [tries, playerLost]);
 
-  const openCard = (clickedCard, efforts, lost) => {
+  useEffect(() => {
+    if (playerLost) finishGame(STATUS_LOST);
+  }, [playerLost]);
+
+  const openCard = clickedCard => {
     // Если карта уже открыта, то ничего не делаем
     if (clickedCard.open) {
       return;
@@ -156,16 +156,25 @@ export function Cards({ pairsCount = 3, previewSeconds = 5 }) {
               return [...acc, card];
             }, []),
           );
+          setCards(
+            cards.reduce((acc, card) => {
+              const previousCard = openCardsWithoutPair.find(item => item.id !== clickedCard.id);
+              if (card.id === previousCard.id) {
+                return [...acc, { ...card, open: false }];
+              }
+              return [...acc, card];
+            }, []),
+          );
         }, 1000);
       }
     }
     tryLost();
 
     // "Игрок проиграл", т.к на поле есть две открытые карты без пары
-    if (lost) {
-      finishGame(STATUS_LOST);
-      return;
-    }
+    // if (lost) {
+    //   finishGame(STATUS_LOST);
+    //   return;
+    // }
 
     // ... игра продолжается
   };
@@ -242,7 +251,7 @@ export function Cards({ pairsCount = 3, previewSeconds = 5 }) {
         {cards.map(card => (
           <Card
             key={card.id}
-            onClick={() => openCard(card, tries, playerLost)}
+            onClick={() => openCard(card)}
             open={status !== STATUS_IN_PROGRESS ? true : card.open}
             suit={card.suit}
             rank={card.rank}
