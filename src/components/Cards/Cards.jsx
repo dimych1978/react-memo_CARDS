@@ -96,7 +96,6 @@ export function Cards({ pairsCount = 3, previewSeconds = 5 }) {
 
   useEffect(() => {
     setTries(tries);
-    console.log("🚀 ~ useEffect ~ tries:", tries);
   }, [tries, setTries]);
 
   useEffect(() => {
@@ -108,7 +107,6 @@ export function Cards({ pairsCount = 3, previewSeconds = 5 }) {
     if (clickedCard.open) {
       return;
     }
-    console.log("🚀 ~ openCard ~ efforts:", efforts, lost);
 
     // Игровое поле после открытия кликнутой карты
     const nextCards = cards.map(card => {
@@ -163,10 +161,6 @@ export function Cards({ pairsCount = 3, previewSeconds = 5 }) {
     }
     tryLost();
 
-    console.log("🚀 ~ openCard ~ tries:", tries);
-    console.log("🚀 ~ openCard ~ lost:", lost);
-
-    console.log("🚀 ~ openCard ~ playerLost:", playerLost);
     // "Игрок проиграл", т.к на поле есть две открытые карты без пары
     if (lost) {
       finishGame(STATUS_LOST);

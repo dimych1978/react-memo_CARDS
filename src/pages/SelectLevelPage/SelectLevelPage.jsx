@@ -5,6 +5,7 @@ import { LightContext } from "../../context/lightContext";
 
 export function SelectLevelPage() {
   const { isLight, setIsLight } = useContext(LightContext);
+  console.log("🚀 ~ SelectLevelPage ~ isLight:", isLight);
 
   return (
     <div className={styles.container}>
@@ -29,7 +30,7 @@ export function SelectLevelPage() {
         </ul>
         <div className={styles.checkbox}>
           <input
-            className={styles.checkbox}
+            className={styles.input}
             type="checkbox"
             checked={isLight}
             id="light"
@@ -39,6 +40,9 @@ export function SelectLevelPage() {
             Легкий режим (3 жизни)
           </label>
         </div>
+        <Link to={"/leaderboard"} className={styles.link}>
+          Перейти к лидерборду
+        </Link>
       </div>
     </div>
   );

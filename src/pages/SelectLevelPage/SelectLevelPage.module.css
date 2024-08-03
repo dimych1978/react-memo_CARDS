@@ -62,59 +62,55 @@
 .levelLink:visited {
   color: #0080c1;
 }
-.checkbox:checked,
-.checkbox:not(:checked) {
+
+.input {
+  appearance: none;
+}
+.input:checked + label,
+.input:not(:checked) + label {
   display: inline-block;
   position: relative;
   padding-left: 28px;
   line-height: 20px;
+  cursor: pointer;
 }
 
-.checkbox + label::before,
-.checkbox:checked + label::before,
-.checkbox:not(:checked) + label::before {
+.input + label::before,
+.input:checked + label::before,
+.input:not(:checked) + label::before {
   content: "";
-  left: 0px;
-  top: 0px;
-  width: 18px;
-  height: 18px;
+  position: absolute;
+  left: -12px;
+  top: -5px;
+  width: 30px;
+  aspect-ratio: 1;
+  /* height: 29px; */
   border: 1px solid #dddddd;
+  border-radius: 2px;
   background-color: #ffffff;
 }
 
-.checkbox + label::after,
-.checkbox:checked::after,
-.checkbox:not(:checked)::after {
+.input + label::after,
+.input:checked + label::after,
+.input:not(:checked) + label::after {
   content: "";
-  -webkit-transition: all 0.2s ease;
-  -moz-transition: all 0.2s ease;
-  -o-transition: all 0.2s ease;
+  position: absolute;
   transition: all 0.2s ease;
-}
-
-.checkbox {
-  display: inline;
-  appearance: none;
-  /* width: 30px;
-  height: 30px; */
-  /* opacity: 0; */
-
-  background: #c2f5ff;
-}
-
-.checkbox:checked {
-  width: 22px;
-  height: 17.24px;
+  left: -4px;
+  top: 0px;
+  width: 14px;
+  height: 9px;
+  border-radius: 3px;
   border-left: 5px solid #7ac100;
   border-bottom: 5px solid #7ac100;
-  -moz-transform: rotate(-45deg);
-  -o-transform: rotate(-45deg);
-  -ms-transform: rotate(-45deg);
   transform: rotate(-45deg);
-  opacity: 1;
 }
 
-.checkbox:not(:checked) {
+.input:not(:checked) + label::after {
+  opacity: 0;
+}
+
+.input:checked + label::after {
   opacity: 1;
 }
 
@@ -124,6 +120,15 @@
   font-weight: 400;
   line-height: 32px;
   text-align: center;
+}
 
-  /* color: #004980; */
+.link {
+  font-family: Roboto;
+  font-size: 18px;
+  font-weight: 400;
+  line-height: 14px;
+  text-align: left;
+  border-bottom: 1px solid;
+  margin-top: 18px;
+  color: #004980;
 }
