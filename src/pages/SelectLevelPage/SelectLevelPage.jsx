@@ -5,7 +5,6 @@ import { LightContext } from "../../context/lightContext";
 
 export function SelectLevelPage() {
   const { isLight, setIsLight } = useContext(LightContext);
-  console.log("🚀 ~ SelectLevelPage ~ isLight:", isLight);
 
   return (
     <div className={styles.container}>

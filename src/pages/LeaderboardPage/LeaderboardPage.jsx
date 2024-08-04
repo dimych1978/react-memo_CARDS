@@ -1,10 +1,14 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import styles from "./LeaderboardPage.module.css";
 import { Button } from "../../components/Button/Button";
 import { getLeaders } from "../../api/api";
 import { useNavigate } from "react-router-dom";
+import { ErrorContext } from "../../context/errorContext";
+import IfError from "../../components/IfError/IfError";
 
 const LeaderboardPage = () => {
+  const { err, setErr } = useContext(ErrorContext);
+
   const [leaders, setLeaders] = useState([]);
   const navigate = useNavigate();
 
@@ -14,6 +18,7 @@ const LeaderboardPage = () => {
       setLeaders(leaders.leaders);
     } catch (error) {
       console.warn(error.message);
+      if (error.message === "Failed to fetch") setErr("Проверьте соединение с интернетом");
     }
   };
 
@@ -35,13 +40,17 @@ const LeaderboardPage = () => {
           <span className={styles.user_header}>Пользователь</span>
           <div className={styles.time_header}>Время </div>
         </div>
-        {leadersSort.map((leader, index) => (
-          <div key={leader.id} className={styles.leader}>
-            <i className={styles.position}># {index + 1}</i>
-            <span className={styles.user}>{leader.name}</span>
-            <div className={styles.time}>{leader.time}</div>
-          </div>
-        ))}
+        {err && <IfError error={err} />}
+        {leadersSort.map(
+          (leader, index) =>
+            index <= 9 && (
+              <div key={leader.id} className={styles.leader}>
+                <i className={styles.position}># {index + 1}</i>
+                <span className={styles.user}>{leader.name}</span>
+                <div className={styles.time}>{leader.time}</div>
+              </div>
+            ),
+        )}
         <div className={styles.leader}>
           <i className={styles.position}># 198 872 278</i>
           <span className={styles.user}>ab98awj_918mlz1lavfh_ru</span>
