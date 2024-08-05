@@ -24,6 +24,12 @@ const LeaderboardPage = () => {
 
   const leadersSort = leaders.sort((a, b) => a.time - b.time);
 
+  const timeFormat = digit => {
+    let minutes = Math.floor(digit / 60);
+    let seconds = digit % 60;
+    return [minutes < 10 ? "0" + minutes : minutes, ".", seconds < 10 ? "0" + seconds : seconds];
+  };
+
   useEffect(() => {
     leaderLoad();
   }, []);
@@ -47,7 +53,7 @@ const LeaderboardPage = () => {
               <div key={leader.id} className={styles.leader}>
                 <i className={styles.position}># {index + 1}</i>
                 <span className={styles.user}>{leader.name}</span>
-                <div className={styles.time}>{leader.time}</div>
+                <div className={styles.time}>{timeFormat(leader.time)}</div>
               </div>
             ),
         )}
