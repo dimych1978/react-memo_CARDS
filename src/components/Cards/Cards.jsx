@@ -16,7 +16,7 @@ const STATUS_IN_PROGRESS = "STATUS_IN_PROGRESS";
 // Начало игры: игрок видит все карты в течении нескольких секунд
 const STATUS_PREVIEW = "STATUS_PREVIEW";
 
-function getTimerValue(startDate, endDate) {
+export function getTimerValue(startDate, endDate) {
   if (!startDate && !endDate) {
     return {
       minutes: 0,
