@@ -28,11 +28,20 @@ export function SelectLevelPage() {
           </li>
         </ul>
         <div className={styles.checkbox}>
-          <input className="" type="checkbox" checked={isLight} id="light" onChange={() => setIsLight(!isLight)} />
+          <input
+            className={styles.input}
+            type="checkbox"
+            checked={isLight}
+            id="light"
+            onChange={() => setIsLight(!isLight)}
+          />
           <label className={styles.light} htmlFor="light">
-            Уровень "light" <i>(Можно сделать 2 ошибки без прекращения игры)</i>
+            Легкий режим (3 жизни)
           </label>
         </div>
+        <Link to={"/leaderboard"} className={styles.link}>
+          Перейти к лидерборду
+        </Link>
       </div>
     </div>
   );
