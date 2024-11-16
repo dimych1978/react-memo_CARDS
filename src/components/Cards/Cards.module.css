@@ -34,7 +34,7 @@
 
 .timer {
   display: flex;
-  align-items: end;
+  align-items: flex-end;
 
   color: #fff;
   font-family: StratosSkyeng;

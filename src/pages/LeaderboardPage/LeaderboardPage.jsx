@@ -5,9 +5,11 @@ import { getLeaders } from "../../api/api";
 import { useNavigate } from "react-router-dom";
 import { ErrorContext } from "../../context/errorContext";
 import IfError from "../../components/IfError/IfError";
+import { AchieveContext } from "../../context/achiveContext";
 
 const LeaderboardPage = () => {
   const { err, setErr } = useContext(ErrorContext);
+  const { handleAchievements } = useContext(AchieveContext);
 
   const [leaders, setLeaders] = useState([]);
   const navigate = useNavigate();
@@ -38,12 +40,20 @@ const LeaderboardPage = () => {
     <div className={styles.container}>
       <div className={styles.header}>
         <p className={styles.title}>Лидерборд</p>
-        <Button onClick={() => navigate("/")}>Начать заново</Button>
+        <Button
+          onClick={() => {
+            handleAchievements({ easyMode: false, superPowerUsed: false });
+            navigate("/");
+          }}
+        >
+          Начать заново
+        </Button>
       </div>
       <section className={styles.leaders}>
         <div className={styles.leader_header}>
           <i className={styles.position_header}>Позиция</i>
           <span className={styles.user_header}>Пользователь</span>
+          <span className={styles.user_header}>Достижения</span>
           <div className={styles.time_header}>Время </div>
         </div>
         {err && <IfError error={err} />}
@@ -53,6 +63,22 @@ const LeaderboardPage = () => {
               <div key={leader.id} className={styles.leader}>
                 <i className={styles.position}># {index + 1}</i>
                 <span className={styles.user}>{leader.name}</span>
+                <div className={styles.user}>
+                  <div
+                    className={
+                      leader.achievements.includes(1)
+                        ? styles.achieveDifficultyInactive
+                        : styles.achieveDifficultyActive
+                    }
+                    data-diff=""
+                  />
+                  <div
+                    className={
+                      leader.achievements.includes(2) ? styles.achievePowerInactive : styles.achievePowerActive
+                    }
+                    data-power=""
+                  />
+                </div>
                 <div className={styles.time}>{timeFormat(leader.time)}</div>
               </div>
             ),

@@ -20,7 +20,7 @@
 .header {
   display: flex;
   justify-content: space-between;
-  align-items: end;
+  align-items: flex-end;
   margin-bottom: 35px;
 }
 
@@ -93,6 +93,8 @@
 }
 
 .user {
+  display: flex;
+
   width: 324px;
 
   font-family: Roboto;
@@ -146,4 +148,71 @@
   text-align: left;
 
   color: #999;
+}
+
+.achievePowerActive,
+.achievePowerInactive,
+.achieveDifficultyActive,
+.achieveDifficultyInactive {
+  position: relative;
+  width: 32px;
+  height: 32px;
+}
+
+.achievePowerActive {
+  background-image: url("/public/super-power-not.svg");
+}
+
+.achievePowerInactive {
+  background-image: url("/public/super-power-not_shadow.svg");
+}
+
+.achieveDifficultyActive {
+  background-image: url("/public/hard-mode.svg");
+}
+
+.achieveDifficultyActive {
+  background-image: url("/public/hard-mode.svg");
+}
+
+.achieveDifficultyInactive {
+  background-image: url("/public/hard-mode_shadow.svg");
+}
+
+[data-diff]::after {
+  content: attr(data-tooltip);
+
+  display: block;
+
+  position: absolute;
+
+  width: 212px;
+  height: 87px;
+
+  background: url("/public/modalHardMode.svg");
+  opacity: 0;
+}
+
+[data-diff]:hover::after {
+  bottom: 30px;
+  opacity: 1;
+}
+
+[data-power]::after {
+  content: attr(data-tooltip);
+
+  display: block;
+
+  position: absolute;
+
+  width: 174px;
+  height: 87px;
+
+  background: url("/public/modalSuperPower.svg");
+  opacity: 0;
+}
+
+[data-power]:hover::after {
+  bottom: 30px;
+  opacity: 1;
 }
