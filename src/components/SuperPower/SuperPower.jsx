@@ -1,7 +1,7 @@
 import { useContext, useEffect, useRef } from "react";
 import usePair from "../../hooks/usePair";
 import styles from "./SuperPower.module.css";
-import { AchieveContext } from "../../context/achiveContext";
+import { AchieveContext } from "../../context/achieveContext";
 
 const SuperPower = ({ opacity, setOpacity, setPair, cards, hidden }) => {
   const { achievements, handleAchievements } = useContext(AchieveContext);
@@ -29,9 +29,9 @@ const SuperPower = ({ opacity, setOpacity, setPair, cards, hidden }) => {
         return;
       }
       setPair(pairs);
-      console.log("🚀 ~ handler ~ achievements:", achievements);
+
       handleAchievements({ ...achievements, superPowerUsed: true });
-      console.log("🚀 ~ handler ~ achievements:", achievements);
+
       setOpacity({ pair: 0.8 });
       refEye.current.disabled = true;
     }

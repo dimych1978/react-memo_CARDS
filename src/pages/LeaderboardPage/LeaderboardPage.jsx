@@ -5,7 +5,7 @@ import { getLeaders } from "../../api/api";
 import { useNavigate } from "react-router-dom";
 import { ErrorContext } from "../../context/errorContext";
 import IfError from "../../components/IfError/IfError";
-import { AchieveContext } from "../../context/achiveContext";
+import { AchieveContext } from "../../context/achieveContext";
 
 const LeaderboardPage = () => {
   const { err, setErr } = useContext(ErrorContext);
@@ -67,14 +67,14 @@ const LeaderboardPage = () => {
                   <div
                     className={
                       leader.achievements.includes(1)
-                        ? styles.achieveDifficultyInactive
-                        : styles.achieveDifficultyActive
+                        ? styles.achieveDifficultyActive
+                        : styles.achieveDifficultyInactive
                     }
                     data-diff=""
                   />
                   <div
                     className={
-                      leader.achievements.includes(2) ? styles.achievePowerInactive : styles.achievePowerActive
+                      leader.achievements.includes(2) ? styles.achievePowerActive : styles.achievePowerInactive
                     }
                     data-power=""
                   />

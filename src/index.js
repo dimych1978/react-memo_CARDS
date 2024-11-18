@@ -5,7 +5,7 @@ import { RouterProvider } from "react-router-dom";
 import { router } from "./router";
 import { LightProvider } from "./context/lightContext";
 import { ErrorProvider } from "./context/errorContext";
-import { AchieveProvider } from "./context/achiveContext";
+import { AchieveProvider } from "./context/achieveContext";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(

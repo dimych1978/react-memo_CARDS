@@ -7,9 +7,7 @@ import { Button } from "../../components/Button/Button";
 import { Card } from "../../components/Card/Card";
 import { LightContext } from "../../context/lightContext";
 import SuperPower from "../SuperPower/SuperPower";
-import { AchieveContext } from "../../context/achiveContext";
-// import Insight from "../Insight/Insight";
-// import { useNavigate } from "react-router-dom";
+import { AchieveContext } from "../../context/achieveContext";
 
 // Игра закончилась
 const STATUS_LOST = "STATUS_LOST";
@@ -47,7 +45,7 @@ export function getTimerValue(startDate, endDate) {
  */
 export function Cards({ pairsCount = 3, previewSeconds = 5 }) {
   const { isLight, tries, setTries } = useContext(LightContext);
-  const { handleAchievements } = useContext(AchieveContext);
+  const { handleAchievements, achievements } = useContext(AchieveContext);
   // В cards лежит игровое поле - массив карт и их состояние открыта\закрыта
   const [cards, setCards] = useState([]);
 
@@ -93,7 +91,7 @@ export function Cards({ pairsCount = 3, previewSeconds = 5 }) {
     setTimer(getTimerValue(null, null));
     setStatus(STATUS_PREVIEW);
     setHiddenCards([]);
-    handleAchievements({ easyMode: false, superPowerUsed: false });
+    handleAchievements({ hardMode: false, superPowerUsed: false });
   }
 
   /**
@@ -232,6 +230,10 @@ export function Cards({ pairsCount = 3, previewSeconds = 5 }) {
       clearInterval(intervalId);
     };
   }, [gameStartDate, gameEndDate]);
+
+  useEffect(() => {
+    if (pairsCount === 9) handleAchievements({ ...achievements, hardMode: true });
+  }, []);
 
   return (
     <div className={styles.container}>
