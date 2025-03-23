@@ -24,7 +24,7 @@ export function EndGameModal({ isWon, gameDurationSeconds, gameDurationMinutes, 
   if (achievements.hardMode) achievementArray.push(1);
   if (!achievements.superPowerUsed) achievementArray.push(2);
 
-  const title = isWon ? (pairsCount === "9" ? "Вы попали на Лидерборд!" : "Вы победили!") : "Вы проиграли!";
+  const title = isWon ? (pairsCount === "9" ? "Поздравляю, ты попал на Лидерборд! Введи свое имя, чтобы его там увидеть." : "Ура, ты победил!") : "Ты ПРОДУЛ!";
 
   const imgSrc = isWon ? celebrationImageUrl : deadImageUrl;
 

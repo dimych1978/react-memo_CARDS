@@ -179,40 +179,41 @@
   background-image: url("/public/hard-mode_shadow.svg");
 }
 
-[data-diff]::after {
-  content: attr(data-tooltip);
+[data-tooltip] {
+  position: relative;
+}
 
+[data-tooltip]::after {
+  content: ""; 
   display: block;
-
   position: absolute;
-
-  width: 212px;
+  width: 212px; 
   height: 87px;
-
-  background: url("/public/modalHardMode.svg");
+  background-size: cover;
   opacity: 0;
+  transition: opacity 0.3s ease;
+  pointer-events: none;
+  bottom: 100%;
+  left: 50%;
+  transform: translateX(-50%);
 }
 
-[data-diff]:hover::after {
-  bottom: 30px;
-  opacity: 1;
+[data-tooltip="hard"]::after {
+  background-image: url("/public/modalHardMode.svg");
 }
 
-[data-power]::after {
-  content: attr(data-tooltip);
-
-  display: block;
-
-  position: absolute;
-
-  width: 174px;
-  height: 87px;
-
-  background: url("/public/modalSuperPower.svg");
-  opacity: 0;
+[data-tooltip="easy"]::after {
+  background-image: url("/public/modalEasyMode.svg");
 }
 
-[data-power]:hover::after {
-  bottom: 30px;
+[data-tooltip="withPower"]::after {
+  background-image: url("/public/modalWithSuperPower.svg");
+}
+
+[data-tooltip="withoutPower"]::after {
+  background-image: url("/public/modalSuperPower.svg");
+}
+
+[data-tooltip]:hover::after {
   opacity: 1;
 }

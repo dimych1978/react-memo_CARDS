@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import styles from "./LeaderboardPage.module.css";
 import { Button } from "../../components/Button/Button";
 import { getLeaders } from "../../api/api";
@@ -70,13 +70,13 @@ const LeaderboardPage = () => {
                         ? styles.achieveDifficultyActive
                         : styles.achieveDifficultyInactive
                     }
-                    data-diff=""
+                    data-tooltip={leader.achievements.includes(1) ? "hard" : "easy"}
                   />
                   <div
                     className={
                       leader.achievements.includes(2) ? styles.achievePowerActive : styles.achievePowerInactive
                     }
-                    data-power=""
+                    data-tooltip={leader.achievements.includes(2) ? "withoutPower" : "withPower"}
                   />
                 </div>
                 <div className={styles.time}>{timeFormat(leader.time)}</div>

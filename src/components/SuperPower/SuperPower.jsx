@@ -2,14 +2,16 @@ import { useContext, useEffect, useRef } from "react";
 import usePair from "../../hooks/usePair";
 import styles from "./SuperPower.module.css";
 import { AchieveContext } from "../../context/achieveContext";
+import { useTemporaryShowCards } from "../../hooks/useTemporaryShowCards";
 
-const SuperPower = ({ opacity, setOpacity, setPair, cards, hidden }) => {
+const SuperPower = ({ setIsTimerRunning, setGameStartDate, setGameEndDate, gameStartDate, opacity, setOpacity, setPair, cards, hidden, setCards }) => {
   const { achievements, handleAchievements } = useContext(AchieveContext);
 
   const refEye = useRef();
   const refPair = useRef();
   const list = hidden.length > 0 ? hidden : cards;
   const pairs = usePair(list);
+  const showAllCards = useTemporaryShowCards(setCards);
 
   useEffect(() => {
     refEye.current.style.opacity = opacity.eye;
@@ -18,7 +20,10 @@ const SuperPower = ({ opacity, setOpacity, setPair, cards, hidden }) => {
 
   const handler = e => {
     if (e.target === refEye.current && opacity.eye !== 0.8) {
-      alert("Эта суперсила пока не работает");
+      showAllCards(cards, setIsTimerRunning, setGameEndDate, setGameStartDate, gameStartDate);
+
+      handleAchievements({ ...achievements, superPowerUsed: true });
+
       setOpacity({ eye: 0.8 });
       refEye.current.disabled = true;
     }

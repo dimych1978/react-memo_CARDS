@@ -8,6 +8,7 @@ import { Card } from "../../components/Card/Card";
 import { LightContext } from "../../context/lightContext";
 import SuperPower from "../SuperPower/SuperPower";
 import { AchieveContext } from "../../context/achieveContext";
+import { useNavigate } from "react-router-dom";
 
 // Игра закончилась
 const STATUS_LOST = "STATUS_LOST";
@@ -44,6 +45,8 @@ export function getTimerValue(startDate, endDate) {
  * previewSeconds - сколько секунд пользователь будет видеть все карты открытыми до начала игры
  */
 export function Cards({ pairsCount = 3, previewSeconds = 5 }) {
+const navigate = useNavigate()
+
   const { isLight, tries, setTries } = useContext(LightContext);
   const { handleAchievements, achievements } = useContext(AchieveContext);
   // В cards лежит игровое поле - массив карт и их состояние открыта\закрыта
@@ -64,6 +67,8 @@ export function Cards({ pairsCount = 3, previewSeconds = 5 }) {
     seconds: 0,
     minutes: 0,
   });
+
+  const [isTimerRunning, setIsTimerRunning] = useState(true)
 
   const [opacity, setOpacity] = useState({ eye: 1, pair: 1 });
 
@@ -91,7 +96,7 @@ export function Cards({ pairsCount = 3, previewSeconds = 5 }) {
     setTimer(getTimerValue(null, null));
     setStatus(STATUS_PREVIEW);
     setHiddenCards([]);
-    handleAchievements({ hardMode: false, superPowerUsed: false });
+    handleAchievements({ ...achievements, superPowerUsed: false });
   }
 
   /**
@@ -221,15 +226,17 @@ export function Cards({ pairsCount = 3, previewSeconds = 5 }) {
     };
   }, [status, pairsCount, previewSeconds]);
 
-  // Обновляем значение таймера в интервале
   useEffect(() => {
-    const intervalId = setInterval(() => {
+   let intervalId;
+
+   if(isTimerRunning){
+     intervalId = setInterval(() => {
       setTimer(getTimerValue(gameStartDate, gameEndDate));
-    }, 300);
-    return () => {
+    }, 300);}
+    return () => {if(intervalId)
       clearInterval(intervalId);
     };
-  }, [gameStartDate, gameEndDate]);
+  }, [gameStartDate, gameEndDate, isTimerRunning]);
 
   useEffect(() => {
     if (pairsCount === 9) handleAchievements({ ...achievements, hardMode: true });
@@ -260,6 +267,11 @@ export function Cards({ pairsCount = 3, previewSeconds = 5 }) {
         </div>
         {status === STATUS_IN_PROGRESS && (
           <SuperPower
+          isTimerRunning={isTimerRunning}
+          setIsTimerRunning={setIsTimerRunning}
+          setGameEndDate={setGameEndDate}
+          setGameStartDate={setGameStartDate}
+          gameStartDate={gameStartDate}
             opacity={opacity}
             setOpacity={setOpacity}
             setStatus={setStatus}
@@ -271,7 +283,10 @@ export function Cards({ pairsCount = 3, previewSeconds = 5 }) {
         )}
         {status === STATUS_IN_PROGRESS ? (
           <div>
-            {isLight && <p className={styles.tries}>Осталось попыток {tries}</p>}
+            <div style={{display: 'flex', justifyContent: 'space-between'}}>
+              {isLight && <p className={styles.tries}>Осталось попыток {tries}</p>}
+             <div className={styles.exit} onClick={() => navigate('/')}></div>
+          </div>
             <Button onClick={resetGame}>Начать заново</Button>
           </div>
         ) : null}
