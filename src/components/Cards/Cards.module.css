@@ -34,7 +34,7 @@
 
 .timer {
   display: flex;
-  align-items: end;
+  align-items: flex-end;
 
   color: #fff;
   font-family: StratosSkyeng;
@@ -74,4 +74,14 @@
 .tries {
   color: greenyellow;
   display: block;
+}
+
+.exit {
+  cursor: pointer;
+  position: relative;
+  width: 32px;
+  height: 32px;
+  background-image: url('/public/exit.svg');
+  background-repeat: no-repeat;
+  bottom: 4px;
 }

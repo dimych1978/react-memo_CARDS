@@ -9,15 +9,22 @@ import { useContext, useState } from "react";
 import { postLeader } from "../../api/api";
 import { ErrorContext } from "../../context/errorContext";
 import IfError from "../IfError/IfError";
+import { AchieveContext } from "../../context/achieveContext";
 
 export function EndGameModal({ isWon, gameDurationSeconds, gameDurationMinutes, onClick }) {
   const { err, setErr } = useContext(ErrorContext);
+  const { achievements } = useContext(AchieveContext);
 
   const { pairsCount } = useParams();
 
   const [user, setUser] = useState();
 
-  const title = isWon ? (pairsCount === "9" ? "Вы попали на Лидерборд!" : "Вы победили!") : "Вы проиграли!";
+  const achievementArray = [];
+
+  if (achievements.hardMode) achievementArray.push(1);
+  if (!achievements.superPowerUsed) achievementArray.push(2);
+
+  const title = isWon ? (pairsCount === "9" ? "Поздравляю, ты попал на Лидерборд! Введи свое имя, чтобы его там увидеть." : "Ура, ты победил!") : "Ты ПРОДУЛ!";
 
   const imgSrc = isWon ? celebrationImageUrl : deadImageUrl;
 
@@ -26,11 +33,10 @@ export function EndGameModal({ isWon, gameDurationSeconds, gameDurationMinutes, 
   const userHandler = e => {
     setUser(e.target.value);
   };
-
   const leaderboardHandler = async () => {
     if (pairsCount !== "9" || !isWon) return;
     try {
-      postLeader({ name: user, time: gameDurationMinutes * 60 + gameDurationSeconds });
+      postLeader({ name: user, time: gameDurationMinutes * 60 + gameDurationSeconds, achievements: achievementArray });
     } catch (error) {
       console.warn(error.message);
       if (error.message === "Failed to fetch") setErr("Проверьте соединение с интернетом");

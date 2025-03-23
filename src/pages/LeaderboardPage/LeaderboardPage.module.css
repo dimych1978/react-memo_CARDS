@@ -20,7 +20,7 @@
 .header {
   display: flex;
   justify-content: space-between;
-  align-items: end;
+  align-items: flex-end;
   margin-bottom: 35px;
 }
 
@@ -93,6 +93,8 @@
 }
 
 .user {
+  display: flex;
+
   width: 324px;
 
   font-family: Roboto;
@@ -146,4 +148,72 @@
   text-align: left;
 
   color: #999;
+}
+
+.achievePowerActive,
+.achievePowerInactive,
+.achieveDifficultyActive,
+.achieveDifficultyInactive {
+  position: relative;
+  width: 32px;
+  height: 32px;
+}
+
+.achievePowerActive {
+  background-image: url("/public/super-power-not.svg");
+}
+
+.achievePowerInactive {
+  background-image: url("/public/super-power-not_shadow.svg");
+}
+
+.achieveDifficultyActive {
+  background-image: url("/public/hard-mode.svg");
+}
+
+.achieveDifficultyActive {
+  background-image: url("/public/hard-mode.svg");
+}
+
+.achieveDifficultyInactive {
+  background-image: url("/public/hard-mode_shadow.svg");
+}
+
+[data-tooltip] {
+  position: relative;
+}
+
+[data-tooltip]::after {
+  content: ""; 
+  display: block;
+  position: absolute;
+  width: 212px; 
+  height: 87px;
+  background-size: cover;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  pointer-events: none;
+  bottom: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+[data-tooltip="hard"]::after {
+  background-image: url("/public/modalHardMode.svg");
+}
+
+[data-tooltip="easy"]::after {
+  background-image: url("/public/modalEasyMode.svg");
+}
+
+[data-tooltip="withPower"]::after {
+  background-image: url("/public/modalWithSuperPower.svg");
+}
+
+[data-tooltip="withoutPower"]::after {
+  background-image: url("/public/modalSuperPower.svg");
+}
+
+[data-tooltip]:hover::after {
+  opacity: 1;
 }

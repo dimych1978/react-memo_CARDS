@@ -1,0 +1,10 @@
+.superPower_eye {
+  width: 68px;
+  height: 68px;
+  background-image: url("/public/eye.svg");
+}
+.superPower_pair {
+  width: 68px;
+  height: 68px;
+  background-image: url("/public/card_pair.svg");
+}

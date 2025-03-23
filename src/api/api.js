@@ -1,4 +1,4 @@
-const URL = "https://wedev-api.sky.pro/api/leaderboard";
+const URL = "https://wedev-api.sky.pro/api/v2/leaderboard";
 
 export const getLeaders = async () => {
   const response = await fetch(URL);

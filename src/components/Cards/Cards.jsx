@@ -6,7 +6,9 @@ import { EndGameModal } from "../../components/EndGameModal/EndGameModal";
 import { Button } from "../../components/Button/Button";
 import { Card } from "../../components/Card/Card";
 import { LightContext } from "../../context/lightContext";
-// import { useNavigate } from "react-router-dom";
+import SuperPower from "../SuperPower/SuperPower";
+import { AchieveContext } from "../../context/achieveContext";
+import { useNavigate } from "react-router-dom";
 
 // Игра закончилась
 const STATUS_LOST = "STATUS_LOST";
@@ -28,9 +30,9 @@ export function getTimerValue(startDate, endDate) {
     endDate = new Date();
   }
 
-  const diffInSecconds = Math.floor((endDate.getTime() - startDate.getTime()) / 1000);
-  const minutes = Math.floor(diffInSecconds / 60);
-  const seconds = diffInSecconds % 60;
+  const diffInSeconds = Math.floor((endDate.getTime() - startDate.getTime()) / 1000);
+  const minutes = Math.floor(diffInSeconds / 60);
+  const seconds = diffInSeconds % 60;
   return {
     minutes,
     seconds,
@@ -43,7 +45,10 @@ export function getTimerValue(startDate, endDate) {
  * previewSeconds - сколько секунд пользователь будет видеть все карты открытыми до начала игры
  */
 export function Cards({ pairsCount = 3, previewSeconds = 5 }) {
+const navigate = useNavigate()
+
   const { isLight, tries, setTries } = useContext(LightContext);
+  const { handleAchievements, achievements } = useContext(AchieveContext);
   // В cards лежит игровое поле - массив карт и их состояние открыта\закрыта
   const [cards, setCards] = useState([]);
 
@@ -57,16 +62,23 @@ export function Cards({ pairsCount = 3, previewSeconds = 5 }) {
   // Дата конца игры
   const [gameEndDate, setGameEndDate] = useState(null);
 
-  // Стейт для таймера, высчитывается в setInteval на основе gameStartDate и gameEndDate
+  // Стейт для таймера, высчитывается в setInterval на основе gameStartDate и gameEndDate
   const [timer, setTimer] = useState({
     seconds: 0,
     minutes: 0,
   });
 
+  const [isTimerRunning, setIsTimerRunning] = useState(true)
+
+  const [opacity, setOpacity] = useState({ eye: 1, pair: 1 });
+
+  const [pairFromPower, setPairFromPower] = useState("");
+
   function finishGame(status = STATUS_LOST) {
     setGameEndDate(new Date());
     setStatus(status);
   }
+
   function startGame() {
     const startDate = new Date();
     setGameEndDate(null);
@@ -74,16 +86,17 @@ export function Cards({ pairsCount = 3, previewSeconds = 5 }) {
     setTimer(getTimerValue(startDate, null));
     setStatus(STATUS_IN_PROGRESS);
   }
-  // const navigate = useNavigate();
 
   function resetGame() {
-    // navigate("/");
+    setOpacity({ eye: 1, pair: 1 });
     setTries(isLight ? 3 : 1);
     setPlayerLost(false);
     setGameStartDate(null);
     setGameEndDate(null);
     setTimer(getTimerValue(null, null));
     setStatus(STATUS_PREVIEW);
+    setHiddenCards([]);
+    handleAchievements({ ...achievements, superPowerUsed: false });
   }
 
   /**
@@ -101,6 +114,19 @@ export function Cards({ pairsCount = 3, previewSeconds = 5 }) {
   useEffect(() => {
     if (playerLost) finishGame(STATUS_LOST);
   }, [playerLost]);
+
+  const [hiddenCards, setHiddenCards] = useState([]);
+
+  const listForPower = hiddenCards.length > 0 ? hiddenCards : cards;
+
+  const applySuperPower = hidden => {
+    if (pairFromPower) {
+      hidden.forEach(card => {
+        if (card.suit === pairFromPower.suit && card.rank === pairFromPower.rank) return (card.open = true);
+      });
+    }
+  };
+  applySuperPower(listForPower);
 
   const openCard = clickedCard => {
     // Если карта уже открыта, то ничего не делаем
@@ -132,6 +158,7 @@ export function Cards({ pairsCount = 3, previewSeconds = 5 }) {
 
     // Открытые карты на игровом поле
     const openCards = nextCards.filter(card => card.open);
+    setHiddenCards(nextCards.filter(card => !card.open));
 
     // Ищем открытые карты, у которых нет пары среди других открытых
     const openCardsWithoutPair = openCards.filter(card => {
@@ -169,14 +196,6 @@ export function Cards({ pairsCount = 3, previewSeconds = 5 }) {
       }
     }
     tryLost();
-
-    // "Игрок проиграл", т.к на поле есть две открытые карты без пары
-    // if (lost) {
-    //   finishGame(STATUS_LOST);
-    //   return;
-    // }
-
-    // ... игра продолжается
   };
 
   const isGameEnded = status === STATUS_LOST || status === STATUS_WON;
@@ -207,15 +226,21 @@ export function Cards({ pairsCount = 3, previewSeconds = 5 }) {
     };
   }, [status, pairsCount, previewSeconds]);
 
-  // Обновляем значение таймера в интервале
   useEffect(() => {
-    const intervalId = setInterval(() => {
+   let intervalId;
+
+   if(isTimerRunning){
+     intervalId = setInterval(() => {
       setTimer(getTimerValue(gameStartDate, gameEndDate));
-    }, 300);
-    return () => {
+    }, 300);}
+    return () => {if(intervalId)
       clearInterval(intervalId);
     };
-  }, [gameStartDate, gameEndDate]);
+  }, [gameStartDate, gameEndDate, isTimerRunning]);
+
+  useEffect(() => {
+    if (pairsCount === 9) handleAchievements({ ...achievements, hardMode: true });
+  }, []);
 
   return (
     <div className={styles.container}>
@@ -240,9 +265,28 @@ export function Cards({ pairsCount = 3, previewSeconds = 5 }) {
             </>
           )}
         </div>
+        {status === STATUS_IN_PROGRESS && (
+          <SuperPower
+          isTimerRunning={isTimerRunning}
+          setIsTimerRunning={setIsTimerRunning}
+          setGameEndDate={setGameEndDate}
+          setGameStartDate={setGameStartDate}
+          gameStartDate={gameStartDate}
+            opacity={opacity}
+            setOpacity={setOpacity}
+            setStatus={setStatus}
+            setPair={setPairFromPower}
+            pair={pairFromPower}
+            cards={cards}
+            hidden={hiddenCards}
+          />
+        )}
         {status === STATUS_IN_PROGRESS ? (
           <div>
-            {isLight && <p className={styles.tries}>Осталось попыток {tries}</p>}
+            <div style={{display: 'flex', justifyContent: 'space-between'}}>
+              {isLight && <p className={styles.tries}>Осталось попыток {tries}</p>}
+             <div className={styles.exit} onClick={() => navigate('/')}></div>
+          </div>
             <Button onClick={resetGame}>Начать заново</Button>
           </div>
         ) : null}
