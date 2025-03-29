@@ -4,7 +4,7 @@ import { generateDeck } from "../../utils/cards";
 import styles from "./Cards.module.css";
 import { EndGameModal } from "../../components/EndGameModal/EndGameModal";
 import { Button } from "../../components/Button/Button";
-import { Card } from "../../components/Card/Card";
+import  Card  from "../../components/Card/Card";
 import { LightContext } from "../../context/lightContext";
 import SuperPower from "../SuperPower/SuperPower";
 import { AchieveContext } from "../../context/achieveContext";
@@ -109,7 +109,7 @@ const navigate = useNavigate()
 
   useEffect(() => {
     if (tries === 0) setPlayerLost(true);
-  }, [tries, playerLost]);
+  }, [tries]);
 
   useEffect(() => {
     if (playerLost) finishGame(STATUS_LOST);
