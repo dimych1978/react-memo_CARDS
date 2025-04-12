@@ -8,6 +8,7 @@ import diamondsImageUrl from "./images/diamonds.svg";
 import cardShirtImageUrl from "./images/сard-shirt.svg";
 
 import cn from "classnames";
+import React from "react";
 
 const images = {
   [HEARTS_SUIT]: heartsImageUrl,
@@ -46,7 +47,7 @@ const ClosedCard = ({ onClick }) => (
   </button>
 );
 
-export function Card({ onClick, suit, rank, open }) {
+function Card({ onClick, suit, rank, open }) {
   return (
     <div>
       <div
@@ -67,3 +68,4 @@ export function Card({ onClick, suit, rank, open }) {
     </div>
   );
 }
+export default React.memo(Card)
