@@ -18,6 +18,7 @@ const LeaderboardPage = () => {
     try {
       const leaders = await getLeaders();
       setLeaders(leaders.leaders);
+      setErr(null)
     } catch (error) {
       console.warn(error.message);
       if (error.message === "Failed to fetch") setErr("Проверьте соединение с интернетом");
@@ -34,6 +35,10 @@ const LeaderboardPage = () => {
 
   useEffect(() => {
     leaderLoad();
+
+    const handleUpdate = () => {leaderLoad()}
+    window.addEventListener('online',handleUpdate);
+    return () => window.removeEventListener('online', handleUpdate)  
   }, []);
 
   return (
