@@ -1,21 +1,34 @@
 {
   "files": {
-    "main.css": "/react-memo/static/css/main.38496486.css",
-    "main.js": "/react-memo/static/js/main.2bd3b906.js",
-    "static/media/StratosSkyeng.woff2": "/react-memo/static/media/StratosSkyeng.ce93393e831d32412096.woff2",
-    "static/media/celebration.png": "/react-memo/static/media/celebration.2577e3c3835ac1f32429.png",
-    "static/media/dead.png": "/react-memo/static/media/dead.bfb3f81b5110f1b62252.png",
-    "static/media/сard-shirt.svg": "/react-memo/static/media/сard-shirt.4d53d3f942979a0dcb35c53a2889e78b.svg",
-    "static/media/cross.svg": "/react-memo/static/media/cross.7f91ce47ecbf6ae38498fefd7b1000b6.svg",
-    "index.html": "/react-memo/index.html",
-    "static/media/hearts.svg": "/react-memo/static/media/hearts.be33f4a44d6f0430c5e08883a0ad5e5b.svg",
-    "static/media/spades.svg": "/react-memo/static/media/spades.93f2e7c8261b046c228b40965b4493ec.svg",
-    "static/media/diamonds.svg": "/react-memo/static/media/diamonds.6d6202122f9a41366f7da20cfe4cf5b7.svg",
-    "main.38496486.css.map": "/react-memo/static/css/main.38496486.css.map",
-    "main.2bd3b906.js.map": "/react-memo/static/js/main.2bd3b906.js.map"
+    "main.css": "/react-memo_CARDS/static/css/main.dcb6228d.css",
+    "main.js": "/react-memo_CARDS/static/js/main.ab49da05.js",
+    "static/media/StratosSkyeng.woff2": "/react-memo_CARDS/static/media/StratosSkyeng.ce93393e831d32412096.woff2",
+    "static/media/roboto-regular.woff2": "/react-memo_CARDS/static/media/roboto-regular.61a111dc19ac475d6861.woff2",
+    "static/media/Poppins-Regular.woff2": "/react-memo_CARDS/static/media/Poppins-Regular.5a6c15af2151cfa27e76.woff2",
+    "static/media/modalSuperPower.svg": "/react-memo_CARDS/static/media/modalSuperPower.764310bd00c04266a40e.svg",
+    "static/media/modalHardMode.svg": "/react-memo_CARDS/static/media/modalHardMode.725216061bd4ef674824.svg",
+    "static/media/celebration.png": "/react-memo_CARDS/static/media/celebration.2577e3c3835ac1f32429.png",
+    "static/media/dead.png": "/react-memo_CARDS/static/media/dead.bfb3f81b5110f1b62252.png",
+    "static/media/eye.svg": "/react-memo_CARDS/static/media/eye.97eb31082623e114d8f7.svg",
+    "static/media/super-power-not_shadow.svg": "/react-memo_CARDS/static/media/super-power-not_shadow.86c8816a5912f29fb487.svg",
+    "static/media/hard-mode_shadow.svg": "/react-memo_CARDS/static/media/hard-mode_shadow.b874d825b20069c3f036.svg",
+    "static/media/hard-mode.svg": "/react-memo_CARDS/static/media/hard-mode.26a6866c6e94d8ee787d.svg",
+    "static/media/super-power-not.svg": "/react-memo_CARDS/static/media/super-power-not.58e64138872e86f594c0.svg",
+    "static/media/card_pair.svg": "/react-memo_CARDS/static/media/card_pair.e941fb55b58c9a7f3664.svg",
+    "static/media/сard-shirt.svg": "/react-memo_CARDS/static/media/сard-shirt.ee1c021f7ee4ddc65293b8afcc81859d.svg",
+    "index.html": "/react-memo_CARDS/index.html",
+    "static/media/cross.svg": "/react-memo_CARDS/static/media/cross.a67a9b79b3c4428c4927895e6c820391.svg",
+    "static/media/hearts.svg": "/react-memo_CARDS/static/media/hearts.61a332d669720824455d75936096b657.svg",
+    "static/media/spades.svg": "/react-memo_CARDS/static/media/spades.d5657ff5be305701be575ad4403987f4.svg",
+    "static/media/modalWithSuperPower.svg": "/react-memo_CARDS/static/media/modalWithSuperPower.7fbb115d66bef96dafea.svg",
+    "static/media/exit.svg": "/react-memo_CARDS/static/media/exit.af2d916c3aa7432e491f.svg",
+    "static/media/modalEasyMode.svg": "/react-memo_CARDS/static/media/modalEasyMode.b05e5da1440b791f2d65.svg",
+    "static/media/diamonds.svg": "/react-memo_CARDS/static/media/diamonds.60153c09fb0fa0f9b5bab2a62d795342.svg",
+    "main.dcb6228d.css.map": "/react-memo_CARDS/static/css/main.dcb6228d.css.map",
+    "main.ab49da05.js.map": "/react-memo_CARDS/static/js/main.ab49da05.js.map"
   },
   "entrypoints": [
-    "static/css/main.38496486.css",
-    "static/js/main.2bd3b906.js"
+    "static/css/main.dcb6228d.css",
+    "static/js/main.ab49da05.js"
   ]
 }
