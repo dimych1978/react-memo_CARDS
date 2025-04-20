@@ -22,5 +22,5 @@ export const router = createBrowserRouter(
    * basename нужен для корректной работы в gh pages
    * он же указан в homepage package.json и в index.html
    */
-  { basename: "/react-memo" },
+  { basename: "/react-memo_CARDS" },
 );
