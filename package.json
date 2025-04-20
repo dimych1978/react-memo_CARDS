@@ -2,13 +2,12 @@
   "name": "memo-card-game",
   "version": "0.1.0",
   "private": true,
-  "homepage": "/react-memo/",
+  "homepage": "https://dimych1978.github.io/react-memo_CARDS",
   "dependencies": {
     "@testing-library/jest-dom": "^5.17.0",
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
     "classnames": "^2.3.2",
-    "gh-pages": "^6.0.0",
     "lodash": "^4.17.21",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
@@ -17,7 +16,7 @@
   },
   "scripts": {
     "predeploy": "npm run build",
-    "deploy": "gh-pages -d build",
+    "deploy": "gh-pages -d build -r https://github.com/dimych1978/react-memo_CARDS.git",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
@@ -29,6 +28,7 @@
     "eslint-config-prettier": "^9.0.0",
     "eslint-plugin-prettier": "^5.0.0",
     "eslint-prettier": "^0.0.0-empty",
+    "gh-pages": "^6.3.0",
     "lefthook": "^1.4.9",
     "prettier": "^3.0.2"
   },
