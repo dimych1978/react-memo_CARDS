@@ -116,13 +116,30 @@
   transform: rotateY(180deg);
 }
 
-@media (max-width: 600px) {
-  .card {
-    width: 60px;
-    height: 90px;
+@media (max-width: 720px) {
+  .card,
+  .flipContainer,
+  .front,
+  .back {
+    width: 90px;
+    height: 135px;
   }
-  /* Уменьшите шрифты, если текст не влезает */
+
   .rank {
     font-size: 12px !important;
+    line-height: 12px;
+  }
+
+  .rankImage {
+    margin-top: 2px;
+    height: 4px;
+  }
+
+  .suitImage {
+    width: 15px;
+  }
+
+  .cardShirt {
+    width: 50px;
   }
 }

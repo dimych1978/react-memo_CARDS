@@ -85,3 +85,8 @@
   background-repeat: no-repeat;
   bottom: 4px;
 }
+ @media (max-width: 720px) {
+  .cards{
+    margin-top: 50%
+  }
+ }
