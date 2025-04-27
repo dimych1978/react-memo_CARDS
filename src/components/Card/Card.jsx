@@ -18,7 +18,6 @@ const images = {
 };
 
 const OpenCard = ({ rank, suit }) => {
-  console.log(images)
   return (
     <div className={styles.card}>
       <div className={styles.content}>
