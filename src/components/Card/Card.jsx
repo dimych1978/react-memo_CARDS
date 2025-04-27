@@ -5,7 +5,7 @@ import heartsImageUrl from "./images/hearts.svg";
 import crossImageUrl from "./images/cross.svg";
 import spadesImageUrl from "./images/spades.svg";
 import diamondsImageUrl from "./images/diamonds.svg";
-import cardShirtImageUrl from "./images/сard-shirt.svg";
+import cardShirtImageUrl from "./images/card-shirt.svg";
 
 import cn from "classnames";
 import React from "react";
@@ -18,6 +18,7 @@ const images = {
 };
 
 const OpenCard = ({ rank, suit }) => {
+  console.log(images)
   return (
     <div className={styles.card}>
       <div className={styles.content}>
