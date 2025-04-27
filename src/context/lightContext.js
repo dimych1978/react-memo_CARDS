@@ -1,4 +1,4 @@
-import { createContext, useEffect, useState } from "react";
+import { createContext, useEffect, useMemo, useState } from "react";
 
 export const LightContext = createContext();
 
@@ -9,6 +9,12 @@ export const LightProvider = ({ children }) => {
   useEffect(() => {
     isLight ? setTries(3) : setTries(1);
   }, [isLight]);
-
-  return <LightContext.Provider value={{ isLight, setIsLight, tries, setTries }}>{children}</LightContext.Provider>;
+  
+  const value = useMemo(() => ({
+    isLight, 
+    setIsLight,
+    tries,
+    setTries
+  }), [isLight, tries]);
+  return <LightContext.Provider value={value}>{children}</LightContext.Provider>;
 };

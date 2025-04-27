@@ -233,7 +233,7 @@ const navigate = useNavigate()
      intervalId = setInterval(() => {
       setTimer(getTimerValue(gameStartDate, gameEndDate));
     }, 300);}
-    return () => {if(intervalId)
+    return () => {
       clearInterval(intervalId);
     };
   }, [gameStartDate, gameEndDate, isTimerRunning]);
