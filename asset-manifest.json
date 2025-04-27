@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "./static/css/main.25c5639c.css",
-    "main.js": "./static/js/main.7c4e8d43.js",
+    "main.js": "./static/js/main.88f62bd6.js",
     "static/media/StratosSkyeng.woff2": "./static/media/StratosSkyeng.ce93393e831d32412096.woff2",
     "static/media/roboto-regular.woff2": "./static/media/roboto-regular.61a111dc19ac475d6861.woff2",
     "static/media/Poppins-Regular.woff2": "./static/media/Poppins-Regular.5a6c15af2151cfa27e76.woff2",
@@ -15,7 +15,7 @@
     "static/media/hard-mode.svg": "./static/media/hard-mode.26a6866c6e94d8ee787d.svg",
     "static/media/super-power-not.svg": "./static/media/super-power-not.58e64138872e86f594c0.svg",
     "static/media/card_pair.svg": "./static/media/card_pair.e941fb55b58c9a7f3664.svg",
-    "static/media/сard-shirt.svg": "./static/media/сard-shirt.ee1c021f7ee4ddc65293b8afcc81859d.svg",
+    "static/media/card-shirt.svg": "./static/media/card-shirt.ee1c021f7ee4ddc65293b8afcc81859d.svg",
     "static/media/cross.svg": "./static/media/cross.a67a9b79b3c4428c4927895e6c820391.svg",
     "index.html": "./index.html",
     "static/media/hearts.svg": "./static/media/hearts.61a332d669720824455d75936096b657.svg",
@@ -25,10 +25,10 @@
     "static/media/modalEasyMode.svg": "./static/media/modalEasyMode.b05e5da1440b791f2d65.svg",
     "static/media/diamonds.svg": "./static/media/diamonds.60153c09fb0fa0f9b5bab2a62d795342.svg",
     "main.25c5639c.css.map": "./static/css/main.25c5639c.css.map",
-    "main.7c4e8d43.js.map": "./static/js/main.7c4e8d43.js.map"
+    "main.88f62bd6.js.map": "./static/js/main.88f62bd6.js.map"
   },
   "entrypoints": [
     "static/css/main.25c5639c.css",
-    "static/js/main.7c4e8d43.js"
+    "static/js/main.88f62bd6.js"
   ]
 }
