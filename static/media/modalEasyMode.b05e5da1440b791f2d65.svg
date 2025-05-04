@@ -1,9 +1,0 @@
-<svg width="212" height="87" viewBox="0 0 212 87" fill="none" xmlns="http://www.w3.org/2000/svg">
-  <rect width="212" height="78" rx="12" fill="#C2F5FF"/>
-  <path d="M14 87L14 73L34 73L14 87Z" fill="#C2F5FF"/>
-
-  <text x="50%" y="50%" font-family="Arial" font-size="18"  fill="#004980" text-anchor="middle" dominant-baseline="middle">
-    <tspan x="50%" dy="-0.6em">Игра пройдена</tspan>
-    <tspan x="50%" dy="1.2em">в лёгком режиме</tspan>
-  </text>
-</svg>
