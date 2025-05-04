@@ -5,7 +5,29 @@ html {
 body {
   background-color: #004980;
   margin: 0;
+  overflow: hidden;
   height: 100vh;
+  width: 100vw;
+}
+
+:root {
+  --card-width: 95px;
+  --card-height: 133px;
+}
+
+@media (max-width: 720px) {
+  :root {
+    --card-width: min(60px, 20vw);
+    --card-height: min(90px, 30vw);
+  }
+}
+
+.card,
+.flipContainer,
+.front,
+.back {
+  width: var(--card-width);
+  height: var(--card-height);
 }
 
 #root {

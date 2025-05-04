@@ -7,8 +7,21 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: min(90%, 400px);
+  max-height: 80vh;
+  overflow-y: auto;
   &_leaderboard {
     height: 100vh;
+  }
+}
+
+@supports (-webkit-touch-callout: none) {
+  .modal {
+    -webkit-overflow-scrolling: touch;
   }
 }
 

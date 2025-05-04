@@ -1,9 +1,26 @@
 import { Link } from "react-router-dom";
 import styles from "./SelectLevelPage.module.css";
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import { LightContext } from "../../context/lightContext";
 
+function useForceResize() {
+  useEffect(() => {
+    const handleResize = () => {
+      if (window.visualViewport) {
+        document.documentElement.style.setProperty(
+          '--viewport-height',
+          `${window.visualViewport.height}px`
+        );
+      }
+    };
+
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+}
+
 export function SelectLevelPage() {
+  useForceResize();
   const { isLight, setIsLight } = useContext(LightContext);
 
   return (
