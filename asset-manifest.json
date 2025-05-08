@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.css": "/react-memo_CARDS/static/css/main.02b7c54f.css",
-    "main.js": "/react-memo_CARDS/static/js/main.68856a14.js",
+    "main.css": "/react-memo_CARDS/static/css/main.3f582c44.css",
+    "main.js": "/react-memo_CARDS/static/js/main.12807c1a.js",
     "static/media/StratosSkyeng.woff2": "/react-memo_CARDS/static/media/StratosSkyeng.ce93393e831d32412096.woff2",
     "static/media/roboto-regular.woff2": "/react-memo_CARDS/static/media/roboto-regular.61a111dc19ac475d6861.woff2",
     "static/media/Poppins-Regular.woff2": "/react-memo_CARDS/static/media/Poppins-Regular.5a6c15af2151cfa27e76.woff2",
@@ -21,14 +21,15 @@
     "static/media/hearts.svg": "/react-memo_CARDS/static/media/hearts.61a332d669720824455d75936096b657.svg",
     "static/media/spades.svg": "/react-memo_CARDS/static/media/spades.d5657ff5be305701be575ad4403987f4.svg",
     "static/media/modalWithSuperPower.svg": "/react-memo_CARDS/static/media/modalWithSuperPower.7fbb115d66bef96dafea.svg",
+    "static/media/arrow-right-direction-green-icon.svg": "/react-memo_CARDS/static/media/arrow-right-direction-green-icon.10a1daaa94bd9b210ccb.svg",
     "static/media/exit.svg": "/react-memo_CARDS/static/media/exit.af2d916c3aa7432e491f.svg",
     "static/media/modalEasyMode.svg": "/react-memo_CARDS/static/media/modalEasyMode.b05e5da1440b791f2d65.svg",
     "static/media/diamonds.svg": "/react-memo_CARDS/static/media/diamonds.60153c09fb0fa0f9b5bab2a62d795342.svg",
-    "main.02b7c54f.css.map": "/react-memo_CARDS/static/css/main.02b7c54f.css.map",
-    "main.68856a14.js.map": "/react-memo_CARDS/static/js/main.68856a14.js.map"
+    "main.3f582c44.css.map": "/react-memo_CARDS/static/css/main.3f582c44.css.map",
+    "main.12807c1a.js.map": "/react-memo_CARDS/static/js/main.12807c1a.js.map"
   },
   "entrypoints": [
-    "static/css/main.02b7c54f.css",
-    "static/js/main.68856a14.js"
+    "static/css/main.3f582c44.css",
+    "static/js/main.12807c1a.js"
   ]
 }
