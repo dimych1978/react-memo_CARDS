@@ -121,25 +121,36 @@
   .flipContainer,
   .front,
   .back {
-    width: 90px;
-    height: 135px;
+    width: var(--card-width) !important; /* Важно переопределить все жёсткие значения */
+    height: var(--card-height) !important;
   }
 
   .rank {
-    font-size: 18px !important;
-    line-height: 18px;
-  }
-
-  .rankImage {
-    margin-top: 2px;
-    height: 4px;
+    font-size: 16px !important;
+    line-height: 16px !important;
   }
 
   .suitImage {
-    width: 20px;
+    height: 20px !important;
+    width: auto !important;
   }
 
-  .cardShirt {
+  .cardShirt{
     width: 50px;
+  }
+}
+
+@media (max-width: 500px) {
+  :root {
+    --card-width: min(50px, 18vw);
+    --card-height: min(75px, 27vw);
+  }
+  
+  .card, .flipContainer, .front, .back {
+    border-width: 3px;
+  }
+  
+  .rank {
+    font-size: 16px !important;
   }
 }

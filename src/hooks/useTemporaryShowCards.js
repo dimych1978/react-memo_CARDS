@@ -21,7 +21,7 @@ export function useTemporaryShowCards() {
       setGameStartDate(newStartDate);
       setIsTimerRunning(true);
       setGameEndDate(null);
-    }, 2000);
+    }, 4000);
   };
 
   return showAllCards;

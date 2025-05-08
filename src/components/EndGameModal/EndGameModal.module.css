@@ -1,6 +1,15 @@
+.inputContainer {
+  position: relative;
+  width: 276px;
+  margin: 15px 0;
+  display: flex;
+  align-items: center
+}
+
 .modal {
-  width: 480px;
-  height: 459px;
+  max-width: 100%;
+  width: 488px;
+  height: fit-content;
   border-radius: 12px;
   background: #c2f5ff;
   display: flex;
@@ -17,6 +26,7 @@
   &_leaderboard {
     height: 100vh;
   }
+  box-sizing: border-box;
 }
 
 @supports (-webkit-touch-callout: none) {
@@ -54,6 +64,12 @@
   font-weight: 400;
   line-height: 32px;
   text-align: center;
+  box-sizing: border-box
+}
+
+.user:focus {
+  outline: none;
+  border-color: #7ACB22;
 }
 
 .user::placeholder {
@@ -85,4 +101,19 @@
   line-height: 72px;
 
   margin-bottom: 40px;
+}
+
+.submitButton {
+  background: #c2f5ff;
+    outline: none;
+    border: none;
+}
+
+.exit {
+  cursor: pointer;
+  position: relative;
+  width: 32px;
+  height: 32px;
+  background-image: url('/public/arrow-right-direction-green-icon.svg');
+  background-repeat: no-repeat;
 }
