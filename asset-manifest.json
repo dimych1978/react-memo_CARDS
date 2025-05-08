@@ -1,6 +1,6 @@
 {
   "files": {
-    "main.css": "/react-memo_CARDS/static/css/main.b9698748.css",
+    "main.css": "/react-memo_CARDS/static/css/main.e8432dc1.css",
     "main.js": "/react-memo_CARDS/static/js/main.b20695c0.js",
     "static/media/StratosSkyeng.woff2": "/react-memo_CARDS/static/media/StratosSkyeng.ce93393e831d32412096.woff2",
     "static/media/roboto-regular.woff2": "/react-memo_CARDS/static/media/roboto-regular.61a111dc19ac475d6861.woff2",
@@ -25,11 +25,11 @@
     "static/media/exit.svg": "/react-memo_CARDS/static/media/exit.af2d916c3aa7432e491f.svg",
     "static/media/modalEasyMode.svg": "/react-memo_CARDS/static/media/modalEasyMode.b05e5da1440b791f2d65.svg",
     "static/media/diamonds.svg": "/react-memo_CARDS/static/media/diamonds.60153c09fb0fa0f9b5bab2a62d795342.svg",
-    "main.b9698748.css.map": "/react-memo_CARDS/static/css/main.b9698748.css.map",
+    "main.e8432dc1.css.map": "/react-memo_CARDS/static/css/main.e8432dc1.css.map",
     "main.b20695c0.js.map": "/react-memo_CARDS/static/js/main.b20695c0.js.map"
   },
   "entrypoints": [
-    "static/css/main.b9698748.css",
+    "static/css/main.e8432dc1.css",
     "static/js/main.b20695c0.js"
   ]
 }
