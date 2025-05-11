@@ -39,7 +39,7 @@ const navigate = useNavigate()
   if (!achievements.superPowerUsed) achievementArray.push(2);
 
   const title = isWon
-    ? pairsCount === "3"
+    ? pairsCount === "9"
       ? "Поздравляю, ты попал на Лидерборд! Введи свое имя, чтобы его там увидеть."
       : "Ура, ты победил!"
     : "Ты ПРОДУЛ!";
@@ -52,7 +52,7 @@ const navigate = useNavigate()
     setUser(e.target.value);
   };
   const leaderboardHandler = async () => {
-    if (pairsCount !== "3" || !isWon) return;
+    if (pairsCount !== "9" || !isWon) return;
     if (!user.trim()) {
       setErr("Введите имя");
       return;
@@ -68,10 +68,10 @@ const navigate = useNavigate()
   };
 
   return (
-    <div className={`${styles.modal} ${pairsCount === "3" && isWon && styles.modal_height}`}>
+    <div className={`${styles.modal} ${pairsCount === "9" && isWon && styles.modal_height}`}>
       <img className={styles.image} src={imgSrc} alt={imgAlt} />
       <h2 className={styles.title}>{title}</h2>
-      {pairsCount === "3" && isWon && (
+      {pairsCount === "9" && isWon && (
         <div className={styles.inputContainer}>
           <input type="text" className={styles.user} placeholder="Пользователь" onChange={userHandler}></input>
           {isMobile && (
@@ -87,7 +87,7 @@ const navigate = useNavigate()
         {gameDurationMinutes.toString().padStart("2", "0")}.{gameDurationSeconds.toString().padStart("2", "0")}
       </div>
 
-      <Button style={{marginBottom: '18px'}}
+      <Button style={isMobile ? {marginBottom: '18px'} : undefined}
         onClick={() => {
           onClick();
           leaderboardHandler();
@@ -95,7 +95,7 @@ const navigate = useNavigate()
       >
         Начать сначала
       </Button>
-      {(!isMobile) && isWon && pairsCount === "3" && (
+      {(!isMobile) && isWon && pairsCount === "9" && (
         <Link to={"/leaderboard"} className={styles.link} onClick={leaderboardHandler}>
           Перейти к лидерборду
         </Link>
