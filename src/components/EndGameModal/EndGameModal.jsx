@@ -68,7 +68,7 @@ const navigate = useNavigate()
   };
 
   return (
-    <div className={styles.modal} style={pairsCount === "3" && isWon ? { height: "634px" } : { height: "459px" }}>
+    <div className={`${styles.modal} ${pairsCount === "3" && isWon && styles.modal_height}`}>
       <img className={styles.image} src={imgSrc} alt={imgAlt} />
       <h2 className={styles.title}>{title}</h2>
       {pairsCount === "3" && isWon && (
@@ -87,7 +87,7 @@ const navigate = useNavigate()
         {gameDurationMinutes.toString().padStart("2", "0")}.{gameDurationSeconds.toString().padStart("2", "0")}
       </div>
 
-      <Button
+      <Button style={{marginBottom: '18px'}}
         onClick={() => {
           onClick();
           leaderboardHandler();

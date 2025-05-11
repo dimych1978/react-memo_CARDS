@@ -24,3 +24,11 @@
 .button:hover {
   background: #7ac100cc;
 }
+
+@media(max-width: 720px){
+  .button {
+    width: 172px;
+    height: 34px;
+    font-size: 18px;
+  }
+}
