@@ -4,27 +4,45 @@ import { Button } from "../Button/Button";
 
 import deadImageUrl from "./images/dead.png";
 import celebrationImageUrl from "./images/celebration.png";
-import { Link, useParams } from "react-router-dom";
-import { useContext, useState } from "react";
+import { Link, useNavigate, useParams } from "react-router-dom";
+import { useContext, useEffect, useState } from "react";
 import { postLeader } from "../../api/api";
 import { ErrorContext } from "../../context/errorContext";
 import IfError from "../IfError/IfError";
 import { AchieveContext } from "../../context/achieveContext";
 
 export function EndGameModal({ isWon, gameDurationSeconds, gameDurationMinutes, onClick }) {
+const navigate = useNavigate()
+
   const { err, setErr } = useContext(ErrorContext);
   const { achievements } = useContext(AchieveContext);
 
   const { pairsCount } = useParams();
 
-  const [user, setUser] = useState();
+  const [user, setUser] = useState('');
+
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth <= 720);
+    };
+
+    handleResize(); // Проверяем при загрузке
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
 
   const achievementArray = [];
 
   if (achievements.hardMode) achievementArray.push(1);
   if (!achievements.superPowerUsed) achievementArray.push(2);
 
-  const title = isWon ? (pairsCount === "9" ? "Поздравляю, ты попал на Лидерборд! Введи свое имя, чтобы его там увидеть." : "Ура, ты победил!") : "Ты ПРОДУЛ!";
+  const title = isWon
+    ? pairsCount === "9"
+      ? "Поздравляю, ты попал на Лидерборд! Введи свое имя, чтобы его там увидеть."
+      : "Ура, ты победил!"
+    : "Ты ПРОДУЛ!";
 
   const imgSrc = isWon ? celebrationImageUrl : deadImageUrl;
 
@@ -35,20 +53,33 @@ export function EndGameModal({ isWon, gameDurationSeconds, gameDurationMinutes, 
   };
   const leaderboardHandler = async () => {
     if (pairsCount !== "9" || !isWon) return;
+    if (!user.trim()) {
+      setErr("Введите имя");
+      return;
+    }
+
     try {
       postLeader({ name: user, time: gameDurationMinutes * 60 + gameDurationSeconds, achievements: achievementArray });
+      navigate('/leaderboard')
     } catch (error) {
       console.warn(error.message);
-      if (error.message === "Failed to fetch") setErr("Проверьте соединение с интернетом");
+      setErr(error.message === "Failed to fetch" ? "Проверьте соединение с интернетом" : "Ошибка при сохранении");
     }
   };
 
   return (
-    <div className={styles.modal} style={pairsCount === "9" && isWon ? { height: "634px" } : { height: "459px" }}>
+    <div className={`${styles.modal} ${pairsCount === "9" && isWon && styles.modal_height}`}>
       <img className={styles.image} src={imgSrc} alt={imgAlt} />
       <h2 className={styles.title}>{title}</h2>
       {pairsCount === "9" && isWon && (
-        <input type="text" className={styles.user} placeholder="Пользователь" onChange={userHandler}></input>
+        <div className={styles.inputContainer}>
+          <input type="text" className={styles.user} placeholder="Пользователь" onChange={userHandler}></input>
+          {isMobile && (
+            <button className={styles.submitButton} onClick={leaderboardHandler } aria-label="Отправить">
+              <div className={styles.exit} />
+            </button>
+          )}
+        </div>
       )}
       {err && <IfError error={err} />}
       <p className={styles.description}>Затраченное время:</p>
@@ -56,7 +87,7 @@ export function EndGameModal({ isWon, gameDurationSeconds, gameDurationMinutes, 
         {gameDurationMinutes.toString().padStart("2", "0")}.{gameDurationSeconds.toString().padStart("2", "0")}
       </div>
 
-      <Button
+      <Button style={isMobile ? {marginBottom: '18px'} : undefined}
         onClick={() => {
           onClick();
           leaderboardHandler();
@@ -64,7 +95,7 @@ export function EndGameModal({ isWon, gameDurationSeconds, gameDurationMinutes, 
       >
         Начать сначала
       </Button>
-      {isWon && pairsCount === "9" && (
+      {(!isMobile) && isWon && pairsCount === "9" && (
         <Link to={"/leaderboard"} className={styles.link} onClick={leaderboardHandler}>
           Перейти к лидерборду
         </Link>

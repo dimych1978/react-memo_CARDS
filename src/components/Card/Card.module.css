@@ -115,3 +115,42 @@
   z-index: 2;
   transform: rotateY(180deg);
 }
+
+@media (max-width: 720px) {
+  .card,
+  .flipContainer,
+  .front,
+  .back {
+    width: var(--card-width) !important; /* Важно переопределить все жёсткие значения */
+    height: var(--card-height) !important;
+  }
+
+  .rank {
+    font-size: 16px !important;
+    line-height: 16px !important;
+  }
+
+  .suitImage {
+    height: 20px !important;
+    width: auto !important;
+  }
+
+  .cardShirt{
+    width: 50px;
+  }
+}
+
+@media (max-width: 500px) {
+  :root {
+    --card-width: min(50px, 18vw);
+    --card-height: min(75px, 27vw);
+  }
+  
+  .card, .flipContainer, .front, .back {
+    border-width: 3px;
+  }
+  
+  .rank {
+    font-size: 16px !important;
+  }
+}

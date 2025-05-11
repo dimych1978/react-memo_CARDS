@@ -1,20 +1,24 @@
 .container {
-  width: 944px;
+  width: 100%;
   margin: 0 auto;
+  height: 100vh;
   padding: 26px;
   padding-top: 22px;
   box-sizing: border-box;
 }
 
 .modal {
-  width: 480px;
-  height: 459px;
+  width: 100%;
+  max-width: 480px;
+  height: auto;
+  min-height: 459px;
   border-radius: 12px;
   background: #c2f5ff;
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  align-items: center;
+  justify-content: flex-start;
+  padding: 20px auto;
+  margin: 0 auto;
 }
 
 .header {
@@ -27,9 +31,9 @@
 .title {
   color: #fff;
   font-family: Roboto, sans-serif;
-  font-size: 24px;
+  font-size: 20px;
   font-weight: 400;
-  line-height: 32px;
+  line-height: 24px;
   text-align: left;
 }
 
@@ -184,10 +188,10 @@
 }
 
 [data-tooltip]::after {
-  content: ""; 
+  content: "";
   display: block;
   position: absolute;
-  width: 212px; 
+  width: 212px;
   height: 87px;
   background-size: cover;
   opacity: 0;
@@ -216,4 +220,15 @@
 
 [data-tooltip]:hover::after {
   opacity: 1;
+}
+
+@media (max-width: 720px) {
+  .container{
+    padding: 8px;
+    padding-top: 22px;
+  }
+  .leader_header, .position, .position_header, .user, .user_header, .time, .time_header {
+    font-size: 12px;
+    line-height: normal;
+  }
 }

@@ -5,13 +5,35 @@ html {
 body {
   background-color: #004980;
   margin: 0;
-  height: 100vh;
+  width: 100vw;
+}
+
+:root {
+  --card-width: 95px;
+  --card-height: 133px;
+}
+
+@media (max-width: 720px) {
+  :root {
+    --card-width: min(60px, 15vw);
+    --card-height: min(90px, 22vw);
+  }
+}
+
+.card,
+.flipContainer,
+.front,
+.back {
+  width: var(--card-width);
+  height: var(--card-height);
 }
 
 #root {
   width: 100%;
   height: 100%;
-}
+  display: flex;
+  flex-direction: column;
+  overflow: auto;}
 
 h1,
 h2,
