@@ -1,10 +1,10 @@
 import { shuffle } from "lodash";
-import { useContext, useEffect, useState } from "react";
+import { useCallback, useContext, useEffect, useState } from "react";
 import { generateDeck } from "../../utils/cards";
 import styles from "./Cards.module.css";
 import { EndGameModal } from "../../components/EndGameModal/EndGameModal";
 import { Button } from "../../components/Button/Button";
-import  Card  from "../../components/Card/Card";
+import Card from "../../components/Card/Card";
 import { LightContext } from "../../context/lightContext";
 import SuperPower from "../SuperPower/SuperPower";
 import { AchieveContext } from "../../context/achieveContext";
@@ -44,9 +44,10 @@ export function getTimerValue(startDate, endDate) {
  * pairsCount - сколько пар будет в игре
  * previewSeconds - сколько секунд пользователь будет видеть все карты открытыми до начала игры
  */
-export function Cards({ pairsCount = 3, previewSeconds = 5 }) {
-const navigate = useNavigate()
+export function Cards({ pairsCount = 3, previewSeconds = 5, onReset }) {
+  const navigate = useNavigate();
 
+  // const [isResetting, setIsResetting] = useState(false);
   const { isLight, tries, setTries } = useContext(LightContext);
   const { handleAchievements, achievements } = useContext(AchieveContext);
   // В cards лежит игровое поле - массив карт и их состояние открыта\закрыта
@@ -68,7 +69,7 @@ const navigate = useNavigate()
     minutes: 0,
   });
 
-  const [isTimerRunning, setIsTimerRunning] = useState(true)
+  const [isTimerRunning, setIsTimerRunning] = useState(true);
 
   const [opacity, setOpacity] = useState({ eye: 1, pair: 1 });
 
@@ -87,17 +88,27 @@ const navigate = useNavigate()
     setStatus(STATUS_IN_PROGRESS);
   }
 
-  function resetGame() {
+  const resetGame = useCallback(() => {
     setOpacity({ eye: 1, pair: 1 });
     setTries(isLight ? 3 : 1);
     setPlayerLost(false);
     setGameStartDate(null);
     setGameEndDate(null);
     setTimer(getTimerValue(null, null));
-    setStatus(STATUS_PREVIEW);
     setHiddenCards([]);
     handleAchievements({ ...achievements, superPowerUsed: false });
-  }
+    setStatus(STATUS_PREVIEW);
+onReset()
+    // setTimeout(() => {
+    //   const newDeck = shuffle(generateDeck(pairsCount, 10));
+    //   console.log(
+    //     "New deck IDs:",
+    //     newDeck.map(c => c.id),
+    //   ); // Для отладки
+    //   setCards(newDeck);
+    //   setIsResetting(false);
+    // }, 50);
+  }, [achievements, handleAchievements, isLight, setTries, onReset]);
 
   /**
    * Обработка основного действия в игре - открытие карты.
@@ -106,6 +117,12 @@ const navigate = useNavigate()
    * - "Игрок проиграл", если на поле есть две открытые карты без пары
    * - "Игра продолжается", если не случилось первых двух условий
    */
+
+  useEffect(() => {
+    const newDeck = shuffle(generateDeck(pairsCount, 10));
+    setCards(newDeck);
+    setStatus(STATUS_PREVIEW);
+  }, [pairsCount]);
 
   useEffect(() => {
     if (tries === 0) setPlayerLost(true);
@@ -207,15 +224,10 @@ const navigate = useNavigate()
       return;
     }
 
-    // В статусе превью мы
     if (pairsCount > 36) {
       alert("Столько пар сделать невозможно");
       return;
     }
-
-    setCards(() => {
-      return shuffle(generateDeck(pairsCount, 10));
-    });
 
     const timerId = setTimeout(() => {
       startGame();
@@ -224,15 +236,16 @@ const navigate = useNavigate()
     return () => {
       clearTimeout(timerId);
     };
-  }, [status, pairsCount, previewSeconds]);
+  }, [status, previewSeconds]);
 
   useEffect(() => {
-   let intervalId;
+    let intervalId;
 
-   if(isTimerRunning){
-     intervalId = setInterval(() => {
-      setTimer(getTimerValue(gameStartDate, gameEndDate));
-    }, 300);}
+    if (isTimerRunning) {
+      intervalId = setInterval(() => {
+        setTimer(getTimerValue(gameStartDate, gameEndDate));
+      }, 300);
+    }
     return () => {
       clearInterval(intervalId);
     };
@@ -267,11 +280,11 @@ const navigate = useNavigate()
         </div>
         {status === STATUS_IN_PROGRESS && (
           <SuperPower
-          isTimerRunning={isTimerRunning}
-          setIsTimerRunning={setIsTimerRunning}
-          setGameEndDate={setGameEndDate}
-          setGameStartDate={setGameStartDate}
-          gameStartDate={gameStartDate}
+            isTimerRunning={isTimerRunning}
+            setIsTimerRunning={setIsTimerRunning}
+            setGameEndDate={setGameEndDate}
+            setGameStartDate={setGameStartDate}
+            gameStartDate={gameStartDate}
             opacity={opacity}
             setOpacity={setOpacity}
             setStatus={setStatus}
@@ -283,10 +296,10 @@ const navigate = useNavigate()
         )}
         {status === STATUS_IN_PROGRESS ? (
           <div>
-            <div style={{display: 'flex', justifyContent: 'space-between'}}>
+            <div style={{ display: "flex", justifyContent: "space-between" }}>
               {isLight && <p className={styles.tries}>Осталось попыток {tries}</p>}
-             <div className={styles.exit} onClick={() => navigate('/')}></div>
-          </div>
+              <div className={styles.exit} onClick={() => navigate("/")}></div>
+            </div>
             <Button onClick={resetGame}>Начать заново</Button>
           </div>
         ) : null}
